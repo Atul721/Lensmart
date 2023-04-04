@@ -176,7 +176,7 @@ def show_cart(request):
     for p in cart:
         value = p.quantity * p.product.discounted_price
         amount = amount + value
-    totalamount = amount + 100
+    totalamount = amount + 10
     totalitem = 0
     wishitem=0
     if request.user.is_authenticated:
@@ -290,7 +290,7 @@ def minus_cart(request):
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount = amount + value
-        totalamount = amount + 40
+        totalamount = amount + 10
         data={
             'quantity':c.quantity,
             'amount':amount,
@@ -309,7 +309,7 @@ def remove_cart(request):
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount = amount + value
-        totalamount = amount + 40
+        totalamount = amount + 10
         data={
             'amount':amount,
             'totalamount':totalamount
