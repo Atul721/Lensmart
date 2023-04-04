@@ -199,10 +199,8 @@ def show_wishlist(request):
 class checkout(View):
     def get(self,request):
         totalitem = 0
-        wishitem=0
         if request.user.is_authenticated:
             totalitem = len(Cart.objects.filter(user=request.user))
-            wishitem = len(Wishlist.objects.filter(user=request.user))
         user=request.user 
         add=Customer.objects.filter(user=user) 
         cart_items=Cart.objects.filter(user=user)  
@@ -211,9 +209,9 @@ class checkout(View):
             value = p.quantity * p.product.discounted_price
             famount = famount + value
         totalamount = famount + 10
-        razoramount = int(totalamount * 1)
+        razoramount = int(totalamount * 100)
         client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
-        data = { "amount": razoramount, "currency": "EUR", "receipt": "order_rcptid_12"}
+        data = { "amount": razoramount, "currency": "INR", "receipt": "order_rcptid_12"}
         payment_response = client.order.create(data=data)
         print(payment_response)
         #{'id': 'order_KU0n5eKcEeiLOm', 'entity': 'order', 'amount': 14500, 'amount_paid': 0, 'amount_due': 14500, 'currency': 'INR', 'receipt': 'order_rcptid_12', 'offer_id': None, 'status': 'created', 'attempts': 0, 'notes': [], 'created_at': 1665829122}
@@ -272,7 +270,7 @@ def plus_cart(request):
         for p in cart:
             value = p.quantity * p.product.discounted_price
             amount = amount + value
-        totalamount = amount + 40
+        totalamount = amount + 10
         data={
             'quantity':c.quantity,
             'amount':amount,
